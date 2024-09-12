@@ -16,19 +16,19 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(navController: NavController) {
-    val INITIAL_SCREEN_INDEX: Int = 0
-    val pagerState = rememberPagerState(pageCount = { 2 }, initialPage = INITIAL_SCREEN_INDEX)
+    val pagerState = rememberPagerState(pageCount = { 2 })
     val scope = rememberCoroutineScope()
+    val auth = FirebaseAuth.getInstance()
+    val db = FirebaseFirestore.getInstance()
+    val viewModel = CBViewModel(auth, db)
 
     Column {
         AppBarComponents(navController = navController)
         TabBarComponents(
-            initialIndex = INITIAL_SCREEN_INDEX,
+            initialIndex = 0,
             pagerState = pagerState,
             onTabSelected = { selectedPage ->
-                scope.launch {
-                    pagerState.animateScrollToPage(selectedPage)
-                }
+                scope.launch { pagerState.animateScrollToPage(selectedPage) }
             }
         )
 
@@ -37,7 +37,7 @@ fun HomeScreen(navController: NavController) {
             state = pagerState
         ) { page ->
             when (page) {
-                0 -> ChatScreen(navController, vm = CBViewModel(auth = FirebaseAuth.getInstance(), db = FirebaseFirestore.getInstance()))
+                0 -> ChatScreen(navController, viewModel)
                 1 -> CallsScreen()
             }
         }
