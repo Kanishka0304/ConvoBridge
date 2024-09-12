@@ -13,13 +13,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
 
-
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(navController: NavController) {
-
     val INITIAL_SCREEN_INDEX: Int = 0
-    val pagerState = rememberPagerState(pageCount = {3}, initialPage =INITIAL_SCREEN_INDEX)
+    val pagerState = rememberPagerState(pageCount = { 2 }, initialPage = INITIAL_SCREEN_INDEX)
     val scope = rememberCoroutineScope()
 
     Column {
@@ -38,13 +36,10 @@ fun HomeScreen(navController: NavController) {
             modifier = Modifier.fillMaxSize(),
             state = pagerState
         ) { page ->
-            when(page){
+            when (page) {
                 0 -> ChatScreen(navController, vm = CBViewModel(auth = FirebaseAuth.getInstance(), db = FirebaseFirestore.getInstance()))
-                1 -> StatusScreen()
-                2 -> CallsScreen()
+                1 -> CallsScreen()
             }
-
         }
-
     }
 }

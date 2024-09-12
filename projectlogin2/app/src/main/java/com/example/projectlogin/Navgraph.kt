@@ -42,9 +42,6 @@ fun NavGraph() {
             }
 
         }
-        composable(route="Status"){
-            StatusScreen()
-        }
         composable(route = "Chat_Screen") {
             ChatScreen(navController,vm)
         }

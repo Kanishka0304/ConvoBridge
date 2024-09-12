@@ -1,20 +1,16 @@
 package com.example.projectlogin.data
 
-
 data class TabData(
     val title: String,
-    val unreadCount: Int?,
-    val INITIAL_SCREEN_INDEX: Int = 0
+    val unreadCount: Int? = null  // Default to null if not provided
 )
 
 val tabs = listOf(
-    TabData(title = Tabs.CHATS.value, unreadCount = null),
-    TabData(title = Tabs.STATUS.value, unreadCount = null),
-    TabData(title = Tabs.CALLS.value, unreadCount = 4)
+    TabData(title = Tabs.CHATS.value),  // "Chats" tab
+    TabData(title = Tabs.CALLS.value)   // "Calls" tab
 )
 
-enum class Tabs (val value:String) {
+enum class Tabs(val value: String) {
     CHATS("Chats"),
-    STATUS("Status"),
     CALLS("Calls")
 }
